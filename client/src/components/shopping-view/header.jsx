@@ -162,6 +162,8 @@ function ShoppingHeader() {
           <MenuItems />
         </div>
 
+
+     <h1>Good</h1>
         <div className="hidden lg:block">
           <HeaderRightContent />
         </div>
