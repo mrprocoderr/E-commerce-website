@@ -50,7 +50,7 @@ function ShoppingProductTile({
         </CardContent>
       </div>
       <CardFooter>
-      <Button onClick={()=>handleAddtoCart(product?._id)} className="w-full bg-black text-white">Add to cart</Button>
+      <Button onClick={()=>handleAddtoCart(product?._id,product?.totalStock)} className="w-full bg-black text-white">Add to cart</Button>
       </CardFooter>
     </Card>
   )
