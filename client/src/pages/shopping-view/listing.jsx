@@ -16,7 +16,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@radix-ui/react-dropdown-menu"
-import { ArrowUpDownIcon } from "lucide-react"
+import { ArrowUpDownIcon, CheckCircle } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
@@ -95,6 +95,7 @@ function ShoppingListing() {
         if (getQuantity + 1 > getTotalStock) {
           toast({
             title: `Only ${getQuantity} quantity can be added for this item`,
+            className: "bg-red-500 text-white", // Manually apply styling
             variant: "destructive",
           });
 
@@ -114,6 +115,9 @@ function ShoppingListing() {
         dispatch(fetchCartItems(user?.id));
         toast({
           title: "Product is added to cart",
+          description: "You can check it in your cart.",
+          className: "bg-white text-black",
+          icon: <CheckCircle className="text-green-500" />, // Add an icon
         });
       }
     });

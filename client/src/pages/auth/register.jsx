@@ -21,21 +21,22 @@ function AuthRegister() {
   function onSubmit(event) {
     event.preventDefault();
     dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.success) {
-        toast({
-          title: data?.payload?.message,
-        });
-        navigate("/auth/login");
-      }
-      else {
-        toast({
-          title: data?.payload?.message,
-          variant: "destructive",
-        });
-      }
+        if (data?.payload?.success) {
+            toast({
+                title: data?.payload?.message,
+                className: "bg-green-500 text-white", // Success background color
+            });
+            navigate("/auth/login");
+        } else {
+            toast({
+                title: data?.payload?.message,
+                className: "bg-red-500 text-white", // Error background color
+                variant: "destructive",
+            });
+        }
     });
+}
 
-  }
 
   console.log(formData);
 

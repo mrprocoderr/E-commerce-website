@@ -23,10 +23,12 @@ function AuthLogin() {
       if (data?.payload?.success) {
         toast({
           title: data?.payload?.message,
+          className: "bg-green-500 text-white", // Success background color
         });
       } else {
         toast({
           title: data?.payload?.message,
+          className: "bg-red-500 text-white", // Error background color
           variant: "destructive",
         });
       }
