@@ -8,6 +8,7 @@ const getAllOrdersOfAllUsers = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "No orders found!",
+        className:"bg-red-600 text-black shadow-lg",
       });
     }
 
@@ -20,6 +21,7 @@ const getAllOrdersOfAllUsers = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Some error occured!",
+      className:"bg-red-600 text-black shadow-lg",
     });
   }
 };
@@ -34,6 +36,7 @@ const getOrderDetailsForAdmin = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Order not found!",
+        className:"bg-red-600 text-black shadow-lg",
       });
     }
 
@@ -46,6 +49,7 @@ const getOrderDetailsForAdmin = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Some error occured!",
+      className:"bg-red-600 text-black shadow-lg",
     });
   }
 };
@@ -69,12 +73,15 @@ const updateOrderStatus = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Order status is updated successfully!",
+      className:"bg-white text-black shadow-lg",
+
     });
   } catch (e) {
     console.log(e);
     res.status(500).json({
       success: false,
       message: "Some error occured!",
+      className:"bg-red-600 text-black shadow-lg",
     });
   }
 };
