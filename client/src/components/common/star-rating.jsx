@@ -1,9 +1,9 @@
+
 import { StarIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 function StarRatingComponent({ rating = 0, handleRatingChange = () => {} }) {
   console.log(rating, "rating");
-
   return (
     <div className="flex gap-1">
       {[1, 2, 3, 4, 5].map((star) => (
@@ -11,10 +11,10 @@ function StarRatingComponent({ rating = 0, handleRatingChange = () => {} }) {
           key={star}
           className={`p-2 rounded-full transition-colors ${
             star <= rating
-              ? "text-yellow-500 hover:bg-black"
-              : "text-black hover:bg-primary hover:text-primary-foreground"
+              ? "bg-yellow-400 text-yellow-900 hover:bg-yellow-500"
+                  : "bg-gray-100 hover:bg-gray-200"
           }`}
-          variant="outline"
+          // variant="outline"
           size="icon"
           onClick={() => handleRatingChange(star)}
           aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}

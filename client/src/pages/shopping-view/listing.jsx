@@ -96,7 +96,7 @@ function ShoppingListing() {
           toast({
             title: `Only ${getQuantity} quantity can be added for this item`,
             className: "bg-red-500 text-white", // Manually apply styling
-            variant: "destructive",
+            
           });
 
           return;
@@ -170,7 +170,7 @@ function ShoppingListing() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-[200px] bg-white border border-gray-200 rounded-lg shadow-lg p-2"
+                className="w-[200px] bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-[1000]"
               >
                 <DropdownMenuRadioGroup value={sort} onValueChange={handleSort}>
                   {sortOptions.map((sortItem) => (

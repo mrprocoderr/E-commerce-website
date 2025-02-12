@@ -10,15 +10,23 @@ function ShoppingProductTile({
 }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div  onClick={() => handleGetProductDetails(product?._id)}>
+      <div onClick={() => handleGetProductDetails(product?._id)}>
         <div className="relative">
           <img
             src={product?.image}
             alt={product?.title}
             className="w-full h-[300px] object-cover rounded-t-lg"
           />
-          {product?.salePrice > 0 ? (
-            <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
+          {product?.totalStock === 0 ? (
+            <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600 text-white">
+              Out Of Stock
+            </Badge>
+          ) : product?.totalStock < 10 ? (
+            <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600 text-white">
+              {`Only ${product?.totalStock} items left`}
+            </Badge>
+          ) : product?.salePrice > 0 ? (
+            <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600 text-white">
               Sale
             </Badge>
           ) : null}
@@ -50,7 +58,18 @@ function ShoppingProductTile({
         </CardContent>
       </div>
       <CardFooter>
-      <Button onClick={()=>handleAddtoCart(product?._id,product?.totalStock)} className="w-full bg-black text-white">Add to cart</Button>
+        {product?.totalStock === 0 ? (
+          <Button className="w-full bg-gray-400 text-white opacity-60 cursor-not-allowed">
+            Out Of Stock
+          </Button>
+        ) : (
+          <Button
+            onClick={() => handleAddtoCart(product?._id, product?.totalStock)}
+            className="w-full bg-black text-white"
+          >
+            Add to cart
+          </Button>
+        )}
       </CardFooter>
     </Card>
   )

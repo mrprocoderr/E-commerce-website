@@ -74,11 +74,11 @@ function AdminOrdersView() {
                             ? "bg-red-600"
                             : orderItem?.orderStatus === "pending"
                             ? "bg-yellow-500"
-                            : orderItem?.orderStatus === "in process"
+                            : orderItem?.orderStatus === "inProcess"
                             ? "bg-blue-500"
                             : orderItem?.orderStatus === "delivered"
                             ? "bg-purple-500"
-                            : orderItem?.orderStatus === "in shipping"
+                            : orderItem?.orderStatus === "inShipping"
                             ? "bg-orange-500"
                             : "bg-black"
                         }`}

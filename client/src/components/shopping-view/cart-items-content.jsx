@@ -33,6 +33,7 @@ function UserCartItemsContent({ cartItem }) {
           if (getQuantity + 1 > getTotalStock) {
             toast({
               title: `Only ${getQuantity} quantity can be added for this item`,
+              className: "bg-red-500 text-white",
               variant: "destructive",
             });
 
