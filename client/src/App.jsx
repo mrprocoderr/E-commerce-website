@@ -96,6 +96,15 @@ function App() {
       {/* common component
       <h1>Header component</h1> */}
       <Routes>
+      <Route
+          path="/"
+          element={
+            <CheckAuth
+              isAuthenticated={isAuthenticated}
+              user={user}
+            ></CheckAuth>
+          }
+        />
         <Route
           path="/auth"
           element={
