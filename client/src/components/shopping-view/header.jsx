@@ -1,6 +1,7 @@
 import { HousePlug, LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
 import {
   Link,
+  Router,
   useLocation,
   useNavigate,
   useSearchParams,
@@ -23,6 +24,7 @@ import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shop/cart-slice";
 import { Label } from "../ui/label";
+import { motion, AnimatePresence } from "framer-motion"
 // import { useState } from "react";
 
 
@@ -52,13 +54,23 @@ function MenuItems(){
     return(
         <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
             {shoppingViewHeaderMenuItems.map((menuItem) => (
-        <Label
-          onClick={() => handleNavigate(menuItem)}
-          className="text-sm font-medium cursor-pointer"
-          key={menuItem.id}
-        >
-          {menuItem.label}
-        </Label>
+        // <Label
+        //   onClick={() => handleNavigate(menuItem)}
+        //   className="text-sm font-medium cursor-pointer"
+        //   key={menuItem.id}
+        // >
+        //   {menuItem.label}
+        // </Label>
+        <motion.div key={menuItem.id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Label
+            onClick={() => handleNavigate(menuItem)}
+            className={`text-sm font-medium cursor-pointer transition-colors hover:text-primary ${
+              Router.asPath === menuItem.path ? "text-primary" : ""
+            }`}
+          >
+            {menuItem.label}
+          </Label>
+        </motion.div>
       ))}
         </nav>
     );
@@ -83,7 +95,9 @@ function HeaderRightContent() {
   
     return (
       <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+        
          <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button
             onClick={() => setOpenCartSheet(true)}
             variant="outline"
@@ -91,23 +105,19 @@ function HeaderRightContent() {
             className="relative"
           > 
             <ShoppingCart className="w-6 h-6" />
-            <span className="absolute top-[-5px] right-[2px] font-bold text-sm">
+            {/* <span className="absolute top-[-5px] right-[2px] font-bold text-sm"> */}
+            <span className="absolute top-[-5px] right-[2px] font-bold text-sm bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center">
               {cartItems?.items?.length || 0}
             </span>
             <span className="sr-only">User cart</span>
           </Button>
+          </motion.div>
           <UserCartWrapper setOpenCartSheet={setOpenCartSheet} cartItems={
               cartItems && cartItems.items && cartItems.items.length > 0
                 ? cartItems.items
                 : []
             }/>
-           {/*  setOpenCartSheet={setOpenCartSheet}
-            cartItems={
-              cartItems && cartItems.items && cartItems.items.length > 0
-                ? cartItems.items
-                : []
-            }
-          />*/}
+        
         </Sheet> 
   
         <DropdownMenu>
@@ -142,8 +152,8 @@ function ShoppingHeader() {
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link to="/shop/home" className="flex items-center gap-2">
-        <HousePlug className="h-6 w-6"/>
-        <span className="font-bold">Ecommerce</span>
+        <HousePlug className="h-6 w-6 text-primary"/>
+        <span className="font-bold text-xl">Ecommerce</span>
         </Link>
         <Sheet>
         <SheetTrigger asChild>
@@ -167,6 +177,7 @@ function ShoppingHeader() {
           <HeaderRightContent />
         </div>
       </div>
+      
     </header>
   )
 }

@@ -6,14 +6,17 @@ import {
   Airplay,
   BabyIcon,
   ChevronLeftIcon,
+  // ChevronRight,
   ChevronRightIcon,
-  CloudLightning,
+  // CloudLightning,
+  Footprints,
+  Gitlab,
   Heater,
   Images,
   Shirt,
   ShirtIcon,
   ShoppingBasket,
-  UmbrellaIcon,
+  // UmbrellaIcon,
   WashingMachine,
   WatchIcon,
 } from "lucide-react";
@@ -33,10 +36,12 @@ import { useToast } from "@/hooks/use-toast";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
-  { id: "women", label: "Women", icon: CloudLightning },
+  { id: "women", label: "Women", icon: Gitlab },
+  // { id: "women", label: "Women", icon: CloudLightning },
   { id: "kids", label: "Kids", icon: BabyIcon },
   { id: "accessories", label: "Accessories", icon: WatchIcon },
-  { id: "footwear", label: "Footwear", icon: UmbrellaIcon },
+  { id: "footwear", label: "Footwear", icon: Footprints },
+  // { id: "footwear", label: "Footwear", icon: UmbrellaIcon },
 ];
 
 const brandsWithIcon = [
@@ -142,6 +147,24 @@ function ShoppingHome() {
 
   return (
     <div className="flex flex-col min-h-screen">
+     {/* <div className="absolute top-1/2 left-12 z-20 -translate-y-1/2 max-w-xl">
+  <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-black via-gray-800 to-black text-transparent bg-clip-text">
+    We Picked Every Item With Care, 
+    <span className="text-6xl block mt-2">You Must Try</span>
+    <span className="text-4xl block mt-2">At Least Once.</span>
+  </h1>
+  <p className="text-lg mb-6 text-black">
+    Explore our exclusive collection, crafted with precision and passion to bring you the best.
+  </p>
+  <Button asChild className="text-lg px-8 py-6 bg-black text-white hover:bg-black/90">
+    <Link href="/collection">
+      Go To Collection
+      <ChevronRight className="ml-2 h-5 w-5" />
+    </Link>
+  </Button>
+</div> */}
+
+
       <div className="relative w-full h-[750px] overflow-hidden">
         {featureImageList && featureImageList.length > 0
           ? featureImageList.map((slide, index) => (
