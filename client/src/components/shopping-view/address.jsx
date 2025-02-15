@@ -86,6 +86,7 @@ function Address({setCurrentSelectedAddress,selectedId}) {
         dispatch(fetchAllAddresses(user?.id));
         toast({
           title: "Address deleted successfully",
+          className: "bg-white text-black shadow-lg",
         });
       }
     });

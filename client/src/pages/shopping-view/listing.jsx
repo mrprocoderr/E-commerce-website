@@ -21,6 +21,9 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
 
+import { motion } from "framer-motion";
+import { XCircle } from "lucide-react";
+
 function createSearchParamsHelper(filterParams) {
   const queryParams = []
 
@@ -82,28 +85,79 @@ function ShoppingListing() {
     dispatch(fetchProductDetails(getCurrentProductId))
   }
 
+  // function handleAddtoCart(getCurrentProductId, getTotalStock) {
+  //   console.log(cartItems);
+  //   let getCartItems = cartItems.items || [];
+
+  //   if (getCartItems.length) {
+  //     const indexOfCurrentItem = getCartItems.findIndex(
+  //       (item) => item.productId === getCurrentProductId
+  //     );
+  //     if (indexOfCurrentItem > -1) {
+  //       const getQuantity = getCartItems[indexOfCurrentItem].quantity;
+  //       if (getQuantity + 1 > getTotalStock) {
+  //         toast({
+  //           title: `Only ${getQuantity} quantity can be added for this item`,
+  //           className: "bg-red-500 text-white", // Manually apply styling
+            
+  //         });
+
+  //         return;
+  //       }
+  //     }
+  //   }
+
+  //   dispatch(
+  //     addToCart({
+  //       userId: user?.id,
+  //       productId: getCurrentProductId,
+  //       quantity: 1,
+  //     })
+  //   ).then((data) => {
+  //     if (data?.payload?.success) {
+  //       dispatch(fetchCartItems(user?.id));
+  //       toast({
+  //         title: "Product is added to cart",
+  //         description: "You can check it in your cart.",
+  //         className: "bg-white text-black shadow-lg",
+  //         icon: <CheckCircle className="text-green-500" />, // Add an icon
+  //       });
+  //     }
+  //   });
+  // }
   function handleAddtoCart(getCurrentProductId, getTotalStock) {
     console.log(cartItems);
     let getCartItems = cartItems.items || [];
-
+  
     if (getCartItems.length) {
       const indexOfCurrentItem = getCartItems.findIndex(
         (item) => item.productId === getCurrentProductId
       );
+  
       if (indexOfCurrentItem > -1) {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity;
         if (getQuantity + 1 > getTotalStock) {
           toast({
-            title: `Only ${getQuantity} quantity can be added for this item`,
-            className: "bg-red-500 text-white", // Manually apply styling
-            
+            title: (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                whileTap={{ scale: 0.9 }}
+                className="flex items-center gap-2"
+              >
+                <XCircle className="text-red-500" size={20} />
+                Only {getQuantity} quantity can be added for this item
+              </motion.div>
+            ),
+            className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
           });
-
+  
           return;
         }
       }
     }
-
+  
     dispatch(
       addToCart({
         userId: user?.id,
@@ -114,10 +168,19 @@ function ShoppingListing() {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast({
-          title: "Product is added to cart",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              Product is added to cart
+            </motion.div>
+          ),
           description: "You can check it in your cart.",
-          className: "bg-white text-black",
-          icon: <CheckCircle className="text-green-500" />, // Add an icon
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         });
       }
     });

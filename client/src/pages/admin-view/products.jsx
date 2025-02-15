@@ -249,6 +249,7 @@ function AdminProducts() {
             setFormData(initialFormData);
             toast({
               title: "Product added successfully ✅",
+              className: "bg-white text-black shadow-lg",
             });
           }
         });

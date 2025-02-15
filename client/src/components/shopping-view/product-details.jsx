@@ -55,7 +55,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id))
         toast({
-          title: "Product is added to cart",
+          title: "Product is added to cart! ✅",
           className: "bg-white text-black shadow-lg border border-gray-300",
         })
       }
@@ -84,7 +84,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         setReviewMsg("")
         dispatch(getReviews(productDetails?._id))
         toast({
-          title: "Review added successfully!",
+          title: "Review added successfully! ✅",
+          className: "bg-white text-black shadow-lg",
         })
       }
     })

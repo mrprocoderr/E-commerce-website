@@ -27,12 +27,12 @@ function AuthLogin() {
       if (data?.payload?.success) {
         toast({
           title: data?.payload?.message,
-          className: "bg-green-500 text-white",
+          className: "bg-white text-black shadow-lg",
         });
       } else {
         toast({
           title: data?.payload?.message,
-          className: "bg-red-500 text-white",
+          className: "bg-red-500 text-white shadow-lg",
           variant: "destructive",
         });
       }

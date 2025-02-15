@@ -33,7 +33,7 @@ function UserCartItemsContent({ cartItem }) {
           if (getQuantity + 1 > getTotalStock) {
             toast({
               title: `Only ${getQuantity} quantity can be added for this item`,
-              className: "bg-red-500 text-white",
+              className: "bg-red-500 text-white shadow-lg",
               variant: "destructive",
             });
 
@@ -55,7 +55,8 @@ function UserCartItemsContent({ cartItem }) {
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: "Cart item is updated successfully",
+          title: "Cart item is updated successfully ✅",
+          className: "bg-white text-black shadow-lg",
         });
       }
     });
@@ -67,7 +68,8 @@ function UserCartItemsContent({ cartItem }) {
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: "Cart item is deleted successfully",
+          title: "Cart item is deleted successfully ✅",
+          className: "bg-white text-black shadow-lg",
         });
       }
     });
