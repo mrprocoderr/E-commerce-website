@@ -157,7 +157,7 @@ function PaypalReturnPage() {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="mt-6 text-lg font-semibold text-green-600"
             >
-              Payment Received Successfully! 🎉
+              {/* Payment Received Successfully! 🎉 */}
             </motion.div>
           )}
         </CardHeader>

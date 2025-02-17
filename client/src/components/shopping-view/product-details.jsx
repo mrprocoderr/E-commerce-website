@@ -13,6 +13,7 @@ import StarRatingComponent from "../common/star-rating"
 import { useEffect, useState } from "react"
 import { addReview, getReviews } from "@/store/shop/review-slice"
 import { motion, AnimatePresence } from "framer-motion"
+import { CheckCircle, XCircle } from "lucide-react"
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
   const [reviewMsg, setReviewMsg] = useState("")
@@ -32,14 +33,31 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
     const getCartItems = cartItems.items || []
 
     if (getCartItems.length) {
-      const indexOfCurrentItem = getCartItems.findIndex((item) => item.productId === getCurrentProductId)
+      const indexOfCurrentItem = getCartItems.findIndex(
+        (item) => item.productId === getCurrentProductId
+      )
       if (indexOfCurrentItem > -1) {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity
         if (getQuantity + 1 > getTotalStock) {
           toast({
-            title: `Only ${getQuantity} quantity can be added for this item`,
-            className: "bg-red-500 text-white shadow-lg",
+            title: (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                whileTap={{ scale: 0.9 }}
+                className="flex items-center gap-2"
+              >
+                <XCircle className="text-green-500" size={20} />
+                `Only ${getQuantity} quantity can be added for this item`,
+              </motion.div>
+            ),
+            className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
           })
+          // toast({
+          //   title: `Only ${getQuantity} quantity can be added for this item`,
+          //   className: "bg-red-500 text-white shadow-lg",
+          // })
 
           return
         }
@@ -50,14 +68,28 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         userId: user?.id,
         productId: getCurrentProductId,
         quantity: 1,
-      }),
+      })
     ).then((data) => {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id))
         toast({
-          title: "Product is added to cart! ✅",
-          className: "bg-white text-black shadow-lg border border-gray-300",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              Product is added to cart!
+            </motion.div>
+          ),
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         })
+        // toast({
+        //   title: "Product is added to cart! ✅",
+        //   className: "bg-white text-black shadow-lg border border-gray-300",
+        // })
       }
     })
   }
@@ -77,16 +109,31 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         userName: user?.userName,
         reviewMessage: reviewMsg,
         reviewValue: rating,
-      }),
+      })
     ).then((data) => {
       if (data.payload.success) {
         setRating(0)
         setReviewMsg("")
         dispatch(getReviews(productDetails?._id))
         toast({
-          title: "Review added successfully! ✅",
-          className: "bg-white text-black shadow-lg",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              Review added successfully!
+            </motion.div>
+          ),
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         })
+
+        // toast({
+        //   title: "Review added successfully! ✅",
+        //   className: "bg-white text-black shadow-lg",
+        // })
       }
     })
   }
@@ -97,7 +144,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
   const averageReview =
     reviews && reviews.length > 0
-      ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) / reviews.length
+      ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) /
+        reviews.length
       : 0
 
   return (
@@ -148,12 +196,16 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   transition={{ duration: 0.3, delay: 0.3 }}
                 >
                   <p
-                    className={`text-3xl font-bold text-primary ${productDetails?.salePrice > 0 ? "line-through" : ""}`}
+                    className={`text-3xl font-bold text-primary ${
+                      productDetails?.salePrice > 0 ? "line-through" : ""
+                    }`}
                   >
                     ${productDetails?.price}
                   </p>
                   {productDetails?.salePrice > 0 ? (
-                    <p className="text-2xl font-bold text-muted-foreground">${productDetails?.salePrice}</p>
+                    <p className="text-2xl font-bold text-muted-foreground">
+                      ${productDetails?.salePrice}
+                    </p>
                   ) : null}
                 </motion.div>
 
@@ -166,7 +218,9 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   <div className="flex items-center gap-0.5">
                     <StarRatingComponent rating={averageReview} />
                   </div>
-                  <span className="text-muted-foreground">({averageReview.toFixed(2)})</span>
+                  <span className="text-muted-foreground">
+                    ({averageReview.toFixed(2)})
+                  </span>
                 </motion.div>
 
                 <motion.div
@@ -176,11 +230,18 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   transition={{ duration: 0.3, delay: 0.5 }}
                 >
                   {productDetails?.totalStock === 0 ? (
-                    <Button className="w-full bg-black text-white opacity-60 cursor-not-allowed">Out of Stock</Button>
+                    <Button className="w-full bg-black text-white opacity-60 cursor-not-allowed">
+                      Out of Stock
+                    </Button>
                   ) : (
                     <Button
                       className="w-full bg-black text-white hover:bg-gray-800"
-                      onClick={() => handleAddToCart(productDetails?._id, productDetails?.totalStock)}
+                      onClick={() =>
+                        handleAddToCart(
+                          productDetails?._id,
+                          productDetails?.totalStock
+                        )
+                      }
                     >
                       Add to Cart
                     </Button>
@@ -202,11 +263,15 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                           >
                             <Avatar className="w-10 h-10 border">
-                              <AvatarFallback>{reviewItem?.userName[0].toUpperCase()}</AvatarFallback>
+                              <AvatarFallback>
+                                {reviewItem?.userName[0].toUpperCase()}
+                              </AvatarFallback>
                             </Avatar>
                             <div className="grid gap-1">
                               <div className="flex items-center gap-2">
-                                <h3 className="font-bold">{reviewItem?.userName}</h3>
+                                <h3 className="font-bold">
+                                  {reviewItem?.userName}
+                                </h3>
                               </div>
                               <div className="flex items-center gap-0.5">
                                 <StarRatingComponent
@@ -214,12 +279,18 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                                   rating={reviewItem?.reviewValue}
                                 />
                               </div>
-                              <p className="text-muted-foreground">{reviewItem.reviewMessage}</p>
+                              <p className="text-muted-foreground">
+                                {reviewItem.reviewMessage}
+                              </p>
                             </div>
                           </motion.div>
                         ))
                       ) : (
-                        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <motion.h1
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
                           No Reviews
                         </motion.h1>
                       )}
@@ -234,7 +305,11 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   >
                     <Label>Write a review</Label>
                     <div className="flex gap-1">
-                      <StarRatingComponent rating={rating} handleRatingChange={handleRatingChange} interactive={true} />
+                      <StarRatingComponent
+                        rating={rating}
+                        handleRatingChange={handleRatingChange}
+                        interactive={true}
+                      />
                     </div>
                     <Input
                       name="reviewMsg"
@@ -261,15 +336,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 }
 
 export default ProductDetailsDialog
-
-
-
-
-
-
-
-
-
 
 // import { Avatar, AvatarFallback } from "../ui/avatar"
 // import { Button } from "../ui/button"
@@ -510,4 +576,3 @@ export default ProductDetailsDialog
 // }
 
 // export default ProductDetailsDialog
-

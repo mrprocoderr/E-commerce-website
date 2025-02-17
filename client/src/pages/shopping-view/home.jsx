@@ -5,6 +5,7 @@ import bannerThree from "../../assets/banner-3.webp";
 import {
   Airplay,
   BabyIcon,
+  CheckCircle,
   ChevronLeftIcon,
   // ChevronRight,
   ChevronRightIcon,
@@ -19,6 +20,7 @@ import {
   // UmbrellaIcon,
   WashingMachine,
   WatchIcon,
+  XCircle,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -33,6 +35,7 @@ import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
@@ -93,10 +96,25 @@ function ShoppingHome() {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity;
         if (getQuantity + 1 > getTotalStock) {
           toast({
-            title: `Only ${getQuantity} quantity can be added for this item`,
-            className: "bg-red-500 text-white shadow-lg",
-            variant: "destructive",
-          });
+            title: (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                whileTap={{ scale: 0.9 }}
+                className="flex items-center gap-2"
+              >
+                <XCircle className="text-green-500" size={20} />
+                `Only ${getQuantity} quantity can be added for this item`,
+              </motion.div>
+            ),
+            className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+          })
+          // toast({
+          //   title: `Only ${getQuantity} quantity can be added for this item`,
+          //   className: "bg-red-500 text-white shadow-lg",
+          //   variant: "destructive",
+          // });
 
           return;
         }
@@ -112,9 +130,23 @@ function ShoppingHome() {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast({
-          title: "Product is added to cart ✅",
-          className: "bg-white text-black shadow-lg",
-        });
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              Product is added to cart!
+            </motion.div>
+          ),
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
+        })
+        // toast({
+        //   title: "Product is added to cart ✅",
+        //   className: "bg-white text-black shadow-lg",
+        // });
       }
     });
   }

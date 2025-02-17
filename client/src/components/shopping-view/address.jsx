@@ -11,6 +11,8 @@ import { addressFormControls } from "@/config"
 import { useDispatch, useSelector } from "react-redux"
 import { useToast } from "@/hooks/use-toast"
 import AddressCard from "./address-card";
+import { XCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const initialAddressFormData = {
   address: "",
@@ -34,11 +36,29 @@ function Address({setCurrentSelectedAddress,selectedId}) {
     if (addressList.length >= 3 && currentEditedId === null) {
       setFormData(initialAddressFormData)
       toast({
-        title: "You can add a maximum of 3 addresses.",
+        title: (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            whileTap={{ scale: 0.9 }}
+            className="flex items-center gap-2"
+          >
+            <XCircle className="text-green-500" size={20} />
+            You can add a maximum of 3 addresses.
+          </motion.div>
+        ),
         description: "Please remove an existing address to add a new one.",
-        className: "bg-red-600 text-white shadow-lg",
-        variant: "destructive",
-      })
+        className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+      });
+
+
+      // toast({
+      //   title: "You can add a maximum of 3 addresses.",
+      //   description: "Please remove an existing address to add a new one.",
+      //   className: "bg-red-600 text-white shadow-lg",
+      //   variant: "destructive",
+      // })
 
       return
     }

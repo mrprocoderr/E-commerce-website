@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { createNewOrder } from "@/store/shop/order-slice"
+import { XCircle } from "lucide-react"
+import { motion } from "framer-motion"
 // import { Button } from "@/components/ui/button";
 
 function ShoppingCheckout() {
@@ -33,17 +35,47 @@ function ShoppingCheckout() {
   function handleInitiatePaypalPayment() {
     if (cartItems.length === 0) {
       toast({
-        title: "Your cart is empty. Please add items to proceed",
-        className: "bg-red-500 text-white",
-      })
+        title: (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            whileTap={{ scale: 0.9 }}
+            className="flex items-center gap-2"
+          >
+            <XCircle className="text-green-500" size={20} />
+            Your cart is empty. Please add items to proceed
+          </motion.div>
+        ),
+        className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+   });
+      // toast({
+      //   title: "Your cart is empty. Please add items to proceed",
+      //   className: "bg-red-500 text-white shadow-lg",
+      // })
 
       return
     }
     if (currentSelectedAddress === null) {
       toast({
-        title: "Please select one address to proceed.",
-        className: "bg-red-500 text-white",
-      })
+        title: (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            whileTap={{ scale: 0.9 }}
+            className="flex items-center gap-2"
+          >
+            <XCircle className="text-green-500" size={20} />
+            Please select one address to proceed.
+          </motion.div>
+        ),
+        className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+   });
+      // toast({
+      //   title: "Please select one address to proceed.",
+      //   className: "bg-red-500 text-white shadow-lg",
+      // })
 
       return
     }

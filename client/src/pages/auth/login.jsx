@@ -1,46 +1,78 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import Lottie from "lottie-react";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
+import Lottie from "lottie-react"
 
-import CommonForm from "@/components/common/form";
-import { loginFormControls } from "@/config";
-import { useToast } from "@/hooks/use-toast";
-import { loginUser } from "@/store/auth-slice";
-import login from "@/assets/login.json"; // Lottie Animation
+import CommonForm from "@/components/common/form"
+import { loginFormControls } from "@/config"
+import { useToast } from "@/hooks/use-toast"
+import { loginUser } from "@/store/auth-slice"
+import login from "@/assets/login.json" // Lottie Animation
+import { CheckCircle, XCircle } from "lucide-react"
 
 const initialState = {
   email: "",
   password: "",
-};
+}
 
 function AuthLogin() {
-  const [formData, setFormData] = useState(initialState);
-  const dispatch = useDispatch();
-  const { toast } = useToast();
+  const [formData, setFormData] = useState(initialState)
+  const dispatch = useDispatch()
+  const { toast } = useToast()
 
   function onSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
 
     dispatch(loginUser(formData)).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: data?.payload?.message,
-          className: "bg-white text-black shadow-lg",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              {data?.payload?.message}
+            </motion.div>
+          ),
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         });
+
+
+        // toast({
+        //   title: data?.payload?.message,
+        //   className: "bg-white text-black shadow-lg",
+        // })
       } else {
         toast({
-          title: data?.payload?.message,
-          className: "bg-red-500 text-white shadow-lg",
-          variant: "destructive",
-        });
+          title: (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center gap-2"
+            >
+              <XCircle className="text-green-500" size={20} />
+              <span>{data?.payload?.message}</span>
+            </motion.div>
+          ),
+          className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+        })
+
+        // toast({
+        //   title: data?.payload?.message,
+        //   className: "bg-red-500 text-white shadow-lg",
+        //   variant: "destructive",
+        // });
       }
-    });
+    })
   }
 
   return (
-    
     <motion.div
       className="mx-auto w-full max-w-md space-y-6"
       initial={{ opacity: 0, y: -50 }}
@@ -68,9 +100,12 @@ function AuthLogin() {
           Sign in to your account
         </h1>
         <p className="mt-2 text-sm text-gray-600">
-        {/* <p className="mt-2"> */}
+          {/* <p className="mt-2"> */}
           Don&#39;t have an account?
-          <Link className="font-medium ml-2 text-primary hover:underline" to="/auth/register">
+          <Link
+            className="font-medium ml-2 text-primary hover:underline"
+            to="/auth/register"
+          >
             Register
           </Link>
         </p>
@@ -91,11 +126,10 @@ function AuthLogin() {
         />
       </motion.div>
     </motion.div>
-  );
+  )
 }
 
-export default AuthLogin;
-
+export default AuthLogin
 
 // import CommonForm from "@/components/common/form";
 // import { loginFormControls } from "@/config";

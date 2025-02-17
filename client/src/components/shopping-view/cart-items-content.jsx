@@ -1,43 +1,58 @@
-import { Minus, Plus, Trash } from "lucide-react";
-import { Button } from "../ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItem, updateCartQuantity } from "@/store/shop/cart-slice";
-import { useToast } from "../../hooks/use-toast";
-
+import { CheckCircle, Minus, Plus, Trash } from "lucide-react"
+import { Button } from "../ui/button"
+import { useDispatch, useSelector } from "react-redux"
+import { deleteCartItem, updateCartQuantity } from "@/store/shop/cart-slice"
+import { useToast } from "../../hooks/use-toast"
+import { XCircle } from "lucide-react"
+import { motion } from "framer-motion"
 
 function UserCartItemsContent({ cartItem }) {
-  const { user } = useSelector((state) => state.auth);
-  const { cartItems } = useSelector((state) => state.shopCart);
-  const { productList } = useSelector((state) => state.shopProducts);
-  const dispatch = useDispatch();
-  const { toast } = useToast();
+  const { user } = useSelector((state) => state.auth)
+  const { cartItems } = useSelector((state) => state.shopCart)
+  const { productList } = useSelector((state) => state.shopProducts)
+  const dispatch = useDispatch()
+  const { toast } = useToast()
 
   function handleUpdateQuantity(getCartItem, typeOfAction) {
     if (typeOfAction == "plus") {
-      let getCartItems = cartItems.items || [];
+      let getCartItems = cartItems.items || []
 
       if (getCartItems.length) {
         const indexOfCurrentCartItem = getCartItems.findIndex(
           (item) => item.productId === getCartItem?.productId
-        );
+        )
 
         const getCurrentProductIndex = productList.findIndex(
           (product) => product._id === getCartItem?.productId
-        );
-        const getTotalStock = productList[getCurrentProductIndex].totalStock;
+        )
+        const getTotalStock = productList[getCurrentProductIndex].totalStock
 
-        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock");
+        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock")
 
         if (indexOfCurrentCartItem > -1) {
-          const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
+          const getQuantity = getCartItems[indexOfCurrentCartItem].quantity
           if (getQuantity + 1 > getTotalStock) {
             toast({
-              title: `Only ${getQuantity} quantity can be added for this item`,
+              title: (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="flex items-center gap-2"
+                >
+                  <XCircle className="text-green-500" size={20} />
+                  `Only ${getQuantity} quantity can be added for this item`,
+                </motion.div>
+              ),
               className: "bg-red-500 text-white shadow-lg",
-              variant: "destructive",
-            });
-
-            return;
+            })
+            // toast({
+            //   title: `Only ${getQuantity} quantity can be added for this item`,
+            //   className: "bg-red-500 text-white shadow-lg",
+            //   variant: "destructive",
+            // });
+            return
           }
         }
       }
@@ -55,11 +70,26 @@ function UserCartItemsContent({ cartItem }) {
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: "Cart item is updated successfully ✅",
-          className: "bg-white text-black shadow-lg",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              Cart item is updated successfully
+            </motion.div>
+          ),
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         });
+
+        // toast({
+        //   title: "Cart item is updated successfully ✅",
+        //   className: "bg-white text-black shadow-lg",
+        // })
       }
-    });
+    })
   }
 
   function handleCartItemDelete(getCartItem) {
@@ -68,11 +98,25 @@ function UserCartItemsContent({ cartItem }) {
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: "Cart item is deleted successfully ✅",
-          className: "bg-white text-black shadow-lg",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex items-center gap-2"
+            >
+              <CheckCircle className="text-green-500" size={20} />
+              Cart item is deleted successfully
+            </motion.div>
+          ),
+          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         });
+        // toast({
+        //   title: "Cart item is deleted successfully ✅",
+        //   className: "bg-white text-black shadow-lg",
+        // })
       }
-    });
+    })
   }
 
   return (
@@ -122,7 +166,7 @@ function UserCartItemsContent({ cartItem }) {
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default UserCartItemsContent;
+export default UserCartItemsContent
