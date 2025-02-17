@@ -43,13 +43,13 @@ function AuthLayout() {
             <br />
             <span className="relative">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-green-500 to-yellow-500">
-                E-Commerce
+              Modern Hub
               </span>
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-green-500 to-yellow-500"></span>
             </span>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
               {" "}
-              Shopping
+              Shopy
             </span>
           </h1>
           
