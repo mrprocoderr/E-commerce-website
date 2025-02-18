@@ -22,10 +22,7 @@ const commonFeatureRouter = require("./routes/common/feature-routes")
 console.log("MongoDB Connection URL:", process.env.MONGO_URL); // Debugging
 
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("✅ MongoDB connected successfully!"))
   .catch((error) => console.log("❌ MongoDB connection error:", error));
 // mongoose
