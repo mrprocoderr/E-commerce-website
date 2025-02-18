@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 
 const express = require("express")
 const mongoose = require("mongoose")
@@ -19,14 +19,23 @@ const commonFeatureRouter = require("./routes/common/feature-routes")
 //create a database connection -> u can also
 //create a separate file for this and then import/use that file here
 
-mongoose
-  .connect(
-    process.env.MONGO_URL
-    // "mongodb+srv://vaibhavprof111:vaibhavprof1111@cluster0.cghn2.mongodb.net/"
-  )
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error))
+console.log("MongoDB Connection URL:", process.env.MONGO_URL); // Debugging
 
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("✅ MongoDB connected successfully!"))
+  .catch((error) => console.log("❌ MongoDB connection error:", error));
+// mongoose
+//   .connect(
+//     process.env.MONGO_URL
+//   )
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((error) => console.log(error))
+  
+  // "mongodb+srv://vaibhavprof111:vaibhavprof1111@cluster0.cghn2.mongodb.net/"
 const app = express()
 const PORT = process.env.PORT || 5000
 
