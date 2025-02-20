@@ -253,9 +253,9 @@ function PaypalReturnPage() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-6 text-base sm:text-lg font-semibold text-green-600"
+              // className="mt-6 text-base sm:text-lg font-semibold text-green-600"
             >
-              Payment Received Successfully! 🎉
+              {/* Payment Received Successfully! 🎉 */}
             </motion.div>
           )}
         </CardHeader>

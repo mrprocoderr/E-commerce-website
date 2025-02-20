@@ -301,7 +301,7 @@ function ShoppingCheckout() {
   return (
     <div className="flex flex-col">
       {/* Header Image */}
-      <div className="relative h-52 sm:h-64 w-full overflow-hidden">
+      <div className="relative h-[180px] sm:h-[300px] w-full overflow-hidden">
         <img src={img} className="h-full w-full object-cover" alt="Checkout" />
       </div>
 
