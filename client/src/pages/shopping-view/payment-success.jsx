@@ -221,7 +221,7 @@
 // export default PaymentSuccessPage;
 
 
-"use client";
+// "use client";
 
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -248,15 +248,15 @@ function PaymentSuccessPage() {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="flex items-center justify-center min-h-screen h-screen bg-gradient-to-r from-green-400 to-blue-500"
-      // className="flex items-center justify-center min-h-screen h-screen bg-gray-100"
+      className="flex items-center justify-center min-h-screen h-screen bg-gradient-to-r from-green-400 to-blue-500 px-4"
     >
       <motion.div
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        className="w-full max-w-md"
       >
-        <Card className="max-w-md mx-auto p-4 bg-white shadow-2xl rounded-3xl">
+        <Card className="mx-auto p-6 bg-white shadow-2xl rounded-3xl">
           <CardHeader className="text-center">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -264,15 +264,15 @@ function PaymentSuccessPage() {
               transition={{ duration: 1, ease: "easeInOut" }}
             >
               {/* Lottie Animation */}
-              <Lottie animationData={successAnimation} loop={false} className="w-40 mx-auto" />
+              <Lottie animationData={successAnimation} loop={false} className="w-32 sm:w-40 mx-auto" />
             </motion.div>
-            <CardTitle className="text-4xl font-bold text-gray-800 mt-4">
+            <CardTitle className="text-2xl sm:text-4xl font-bold text-gray-800 mt-4">
               Payment Successful! 🎉
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center">
             <motion.p
-              className="text-gray-600 text-lg"
+              className="text-gray-600 text-base sm:text-lg"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
@@ -280,13 +280,13 @@ function PaymentSuccessPage() {
               Your payment has been processed successfully.
             </motion.p>
             <motion.div
-              className="mt-6 space-x-4"
+              className="mt-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
               <Button
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transition-all transform hover:scale-105"
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transition-all transform hover:scale-105 w-full sm:w-auto"
                 onClick={() => navigate("/shop/account")}
               >
                 View Orders
@@ -301,3 +301,4 @@ function PaymentSuccessPage() {
 }
 
 export default PaymentSuccessPage;
+
