@@ -1,28 +1,28 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
-import Lottie from "lottie-react"
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import Lottie from "lottie-react";
 
-import CommonForm from "@/components/common/form"
-import { loginFormControls } from "@/config"
-import { useToast } from "@/hooks/use-toast"
-import { loginUser } from "@/store/auth-slice"
-import login from "@/assets/login.json" // Lottie Animation
-import { CheckCircle, XCircle } from "lucide-react"
+import CommonForm from "@/components/common/form";
+import { loginFormControls } from "@/config";
+import { useToast } from "@/hooks/use-toast";
+import { loginUser } from "@/store/auth-slice";
+import login from "@/assets/login.json"; // Lottie Animation
+import { CheckCircle, XCircle } from "lucide-react";
 
 const initialState = {
   email: "",
   password: "",
-}
+};
 
 function AuthLogin() {
-  const [formData, setFormData] = useState(initialState)
-  const dispatch = useDispatch()
-  const { toast } = useToast()
+  const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+  const { toast } = useToast();
 
   function onSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     dispatch(loginUser(formData)).then((data) => {
       if (data?.payload?.success) {
@@ -40,12 +40,6 @@ function AuthLogin() {
           ),
           className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         });
-
-
-        // toast({
-        //   title: data?.payload?.message,
-        //   className: "bg-white text-black shadow-lg",
-        // })
       } else {
         toast({
           title: (
@@ -56,25 +50,19 @@ function AuthLogin() {
               whileTap={{ scale: 0.9 }}
               className="flex items-center gap-2"
             >
-              <XCircle className="text-green-500" size={20} />
+              <XCircle className="text-red-500" size={20} />
               <span>{data?.payload?.message}</span>
             </motion.div>
           ),
           className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
-        })
-
-        // toast({
-        //   title: data?.payload?.message,
-        //   className: "bg-red-500 text-white shadow-lg",
-        //   variant: "destructive",
-        // });
+        });
       }
-    })
+    });
   }
 
   return (
     <motion.div
-      className="mx-auto w-full max-w-md space-y-6"
+      className="mx-auto w-full max-w-sm sm:max-w-md mt-[-40px] space-y-6 px-4 sm:px-6"
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -86,7 +74,7 @@ function AuthLogin() {
         animate={{ scale: 1 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
-        <Lottie animationData={login} loop={true} className="w-40" />
+        <Lottie animationData={login} loop={true} className="w-32 sm:w-40" />
       </motion.div>
 
       {/* Header */}
@@ -96,11 +84,10 @@ function AuthLogin() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
           Sign in to your account
         </h1>
         <p className="mt-2 text-sm text-gray-600">
-          {/* <p className="mt-2"> */}
           Don&#39;t have an account?
           <Link
             className="font-medium ml-2 text-primary hover:underline"
@@ -126,10 +113,11 @@ function AuthLogin() {
         />
       </motion.div>
     </motion.div>
-  )
+  );
 }
 
-export default AuthLogin
+export default AuthLogin;
+
 
 // import CommonForm from "@/components/common/form";
 // import { loginFormControls } from "@/config";

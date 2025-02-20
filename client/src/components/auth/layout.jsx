@@ -25,6 +25,77 @@
 
 // export default AuthLayout
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { Outlet } from "react-router-dom";
+// import layout from "@/assets/layout.json";
+// import Lottie from "lottie-react";
+// import { motion } from "framer-motion";
+
+// function AuthLayout() {
+//   return (
+//     <div className="flex min-h-screen w-full">
+//       {/* Left Section */}
+//       <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 w-1/2 px-12">
+//         <div className="max-w-md space-y-8 text-center text-primary-foreground">
+//           <h1 className="text-4xl font-extrabold tracking-tight text-white mb-8">
+//             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+//               Welcome to
+//             </span>
+//             <br />
+//             <span className="relative">
+//               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-green-500 to-yellow-500">
+//               Modern Hub
+//               </span>
+//               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-green-500 to-yellow-500"></span>
+//             </span>
+//             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+//               {" "}
+//               Shopy
+//             </span>
+//           </h1>
+          
+//           {/* Animated Lottie Component */}
+//           <motion.div
+//             initial={{ opacity: 0, y: -40 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 1, ease: "easeInOut" }}
+//           >
+//             <Lottie animationData={layout} loop={true} className="w-60 mx-auto" />
+//           </motion.div>
+//         </div>
+//       </div>
+
+//       {/* Right Section */}
+//       <div className="flex flex-1 items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8 min-h-screen">
+//         <Outlet />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default AuthLayout;
+
 import { Outlet } from "react-router-dom";
 import layout from "@/assets/layout.json";
 import Lottie from "lottie-react";
@@ -32,24 +103,23 @@ import { motion } from "framer-motion";
 
 function AuthLayout() {
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex flex-col lg:flex-row min-h-screen w-full">
       {/* Left Section */}
-      <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 w-1/2 px-12">
-        <div className="max-w-md space-y-8 text-center text-primary-foreground">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white mb-8">
+      <div className="flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 w-full lg:w-1/2 px-6 py-12 lg:px-12 lg:py-0">
+        <div className="max-w-md space-y-6 text-center text-primary-foreground">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
               Welcome to
             </span>
             <br />
             <span className="relative">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-green-500 to-yellow-500">
-              Modern Hub
+                Modern Hub
               </span>
               <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-green-500 to-yellow-500"></span>
             </span>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-              {" "}
-              Shopy
+              {" "}Shopy
             </span>
           </h1>
           
@@ -59,7 +129,7 @@ function AuthLayout() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
-            <Lottie animationData={layout} loop={true} className="w-60 mx-auto" />
+            <Lottie animationData={layout} loop={true} className="w-48 md:w-60 mx-auto" />
           </motion.div>
         </div>
       </div>
@@ -73,6 +143,43 @@ function AuthLayout() {
 }
 
 export default AuthLayout;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import { Outlet } from "react-router-dom";
 // import layout from "@/assets/layout.json";

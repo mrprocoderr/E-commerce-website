@@ -1,19 +1,19 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { motion, AnimatePresence } from "framer-motion"
+import { CheckCircle, XCircle } from "lucide-react"
 import { Avatar, AvatarFallback } from "../ui/avatar"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent } from "../ui/dialog"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice"
-import { useDispatch, useSelector } from "react-redux"
 import { useToast } from "@/hooks/use-toast"
 import { setProductDetails } from "@/store/shop/products-slice"
 import StarRatingComponent from "../common/star-rating"
-import { useEffect, useState } from "react"
 import { addReview, getReviews } from "@/store/shop/review-slice"
-import { motion, AnimatePresence } from "framer-motion"
-import { CheckCircle, XCircle } from "lucide-react"
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
   const [reviewMsg, setReviewMsg] = useState("")
@@ -25,7 +25,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   const { toast } = useToast()
 
   function handleRatingChange(getRating) {
-    console.log(getRating, "getRating")
     setRating(getRating)
   }
 
@@ -33,9 +32,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
     const getCartItems = cartItems.items || []
 
     if (getCartItems.length) {
-      const indexOfCurrentItem = getCartItems.findIndex(
-        (item) => item.productId === getCurrentProductId
-      )
+      const indexOfCurrentItem = getCartItems.findIndex((item) => item.productId === getCurrentProductId)
       if (indexOfCurrentItem > -1) {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity
         if (getQuantity + 1 > getTotalStock) {
@@ -49,16 +46,11 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 className="flex items-center gap-2"
               >
                 <XCircle className="text-green-500" size={20} />
-                `Only ${getQuantity} quantity can be added for this item`,
+                {`Only ${getQuantity} quantity can be added for this item`}
               </motion.div>
             ),
             className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
           })
-          // toast({
-          //   title: `Only ${getQuantity} quantity can be added for this item`,
-          //   className: "bg-red-500 text-white shadow-lg",
-          // })
-
           return
         }
       }
@@ -68,7 +60,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         userId: user?.id,
         productId: getCurrentProductId,
         quantity: 1,
-      })
+      }),
     ).then((data) => {
       if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id))
@@ -86,10 +78,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
           ),
           className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         })
-        // toast({
-        //   title: "Product is added to cart! ✅",
-        //   className: "bg-white text-black shadow-lg border border-gray-300",
-        // })
       }
     })
   }
@@ -109,7 +97,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         userName: user?.userName,
         reviewMessage: reviewMsg,
         reviewValue: rating,
-      })
+      }),
     ).then((data) => {
       if (data.payload.success) {
         setRating(0)
@@ -129,11 +117,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
           ),
           className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
         })
-
-        // toast({
-        //   title: "Review added successfully! ✅",
-        //   className: "bg-white text-black shadow-lg",
-        // })
       }
     })
   }
@@ -144,13 +127,12 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
   const averageReview =
     reviews && reviews.length > 0
-      ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) /
-        reviews.length
+      ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) / reviews.length
       : 0
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="bg-white grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
+      <DialogContent className="bg-white p-4 sm:p-6 md:p-8 max-w-[95vw] sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-[70vw] overflow-y-auto max-h-[90vh]">
         <AnimatePresence>
           {open && (
             <motion.div
@@ -158,23 +140,21 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="col-span-2 grid grid-cols-2 gap-8"
+              className="flex flex-col md:flex-row gap-4 md:gap-8"
             >
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative overflow-hidden rounded-lg w-full md:w-1/2">
                 <motion.img
                   src={productDetails?.image}
                   alt={productDetails?.title}
-                  width={600}
-                  height={600}
-                  className="aspect-square w-full object-contain"
+                  className="w-full h-auto object-contain"
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.3 }}
                 />
               </div>
-              <div>
+              <div className="w-full md:w-1/2">
                 <motion.h1
-                  className="text-3xl font-extrabold"
+                  className="text-2xl sm:text-3xl font-extrabold"
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
@@ -182,7 +162,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   {productDetails?.title}
                 </motion.h1>
                 <motion.p
-                  className="text-muted-foreground text-2xl mb-5 mt-4"
+                  className="text-muted-foreground text-lg sm:text-xl mb-3 mt-2"
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
@@ -196,17 +176,15 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   transition={{ duration: 0.3, delay: 0.3 }}
                 >
                   <p
-                    className={`text-3xl font-bold text-primary ${
+                    className={`text-2xl sm:text-3xl font-bold text-primary ${
                       productDetails?.salePrice > 0 ? "line-through" : ""
                     }`}
                   >
                     ${productDetails?.price}
                   </p>
-                  {productDetails?.salePrice > 0 ? (
-                    <p className="text-2xl font-bold text-muted-foreground">
-                      ${productDetails?.salePrice}
-                    </p>
-                  ) : null}
+                  {productDetails?.salePrice > 0 && (
+                    <p className="text-xl sm:text-2xl font-bold text-muted-foreground">${productDetails?.salePrice}</p>
+                  )}
                 </motion.div>
 
                 <motion.div
@@ -218,30 +196,21 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   <div className="flex items-center gap-0.5">
                     <StarRatingComponent rating={averageReview} />
                   </div>
-                  <span className="text-muted-foreground">
-                    ({averageReview.toFixed(2)})
-                  </span>
+                  <span className="text-muted-foreground">({averageReview.toFixed(2)})</span>
                 </motion.div>
 
                 <motion.div
-                  className="mt-5 mb-5"
+                  className="mt-4 mb-4"
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.5 }}
                 >
                   {productDetails?.totalStock === 0 ? (
-                    <Button className="w-full bg-black text-white opacity-60 cursor-not-allowed">
-                      Out of Stock
-                    </Button>
+                    <Button className="w-full bg-black text-white opacity-60 cursor-not-allowed">Out of Stock</Button>
                   ) : (
                     <Button
                       className="w-full bg-black text-white hover:bg-gray-800"
-                      onClick={() =>
-                        handleAddToCart(
-                          productDetails?._id,
-                          productDetails?.totalStock
-                        )
-                      }
+                      onClick={() => handleAddToCart(productDetails?._id, productDetails?.totalStock)}
                     >
                       Add to Cart
                     </Button>
@@ -250,47 +219,37 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 <div className="h-px bg-gray-300 w-full my-4" />
                 <div className="max-h-[300px] overflow-auto">
                   <h2 className="text-xl font-bold mb-4">Reviews</h2>
-                  <motion.div className="grid gap-6">
+                  <motion.div className="grid gap-4">
                     <AnimatePresence>
                       {reviews && reviews.length > 0 ? (
                         reviews.map((reviewItem, index) => (
                           <motion.div
-                            key={reviewItem}
-                            className="flex gap-4"
+                            key={reviewItem._id}
+                            className="flex gap-3"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                           >
-                            <Avatar className="w-10 h-10 border">
-                              <AvatarFallback>
-                                {reviewItem?.userName[0].toUpperCase()}
-                              </AvatarFallback>
+                            <Avatar className="w-8 h-8 border">
+                              <AvatarFallback>{reviewItem?.userName[0].toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <div className="grid gap-1">
                               <div className="flex items-center gap-2">
-                                <h3 className="font-bold">
-                                  {reviewItem?.userName}
-                                </h3>
+                                <h3 className="font-bold">{reviewItem?.userName}</h3>
                               </div>
                               <div className="flex items-center gap-0.5">
                                 <StarRatingComponent
-                                  className="w-3 h-5 text-yellow-500"
+                                  className="w-3 h-4 text-yellow-500"
                                   rating={reviewItem?.reviewValue}
                                 />
                               </div>
-                              <p className="text-muted-foreground">
-                                {reviewItem.reviewMessage}
-                              </p>
+                              <p className="text-sm text-muted-foreground">{reviewItem.reviewMessage}</p>
                             </div>
                           </motion.div>
                         ))
                       ) : (
-                        <motion.h1
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        >
+                        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                           No Reviews
                         </motion.h1>
                       )}
@@ -298,18 +257,14 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   </motion.div>
 
                   <motion.div
-                    className="mt-10 flex-col flex gap-2"
+                    className="mt-6 flex-col flex gap-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.6 }}
                   >
                     <Label>Write a review</Label>
                     <div className="flex gap-1">
-                      <StarRatingComponent
-                        rating={rating}
-                        handleRatingChange={handleRatingChange}
-                        interactive={true}
-                      />
+                      <StarRatingComponent rating={rating} handleRatingChange={handleRatingChange} interactive={true} />
                     </div>
                     <Input
                       name="reviewMsg"
@@ -336,6 +291,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 }
 
 export default ProductDetailsDialog
+
+
 
 // import { Avatar, AvatarFallback } from "../ui/avatar"
 // import { Button } from "../ui/button"
