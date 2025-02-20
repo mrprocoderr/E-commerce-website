@@ -89,13 +89,13 @@
 
 // export default UserCartWrapper
 
-import { useNavigate } from "react-router-dom"
-import { Button } from "../ui/button"
-import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet"
-import UserCartItemsContent from "./cart-items-content"
+import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
+import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
+import UserCartItemsContent from "./cart-items-content";
 
 function UserCartWrapper({ cartItems, setOpenCartSheet }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const totalCartAmount =
     cartItems?.length > 0
@@ -108,10 +108,10 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
               currentItem?.quantity,
           0
         )
-      : 0
+      : 0;
 
   return (
-    <SheetContent className="sm:max-w-md w-full bg-white dark:bg-gray-800 p-4 sm:p-6">
+    <SheetContent className="sm:max-w-md w-full bg-white p-4 sm:p-6 dark:bg-white">
       <SheetHeader>
         <SheetTitle className="text-lg sm:text-xl">Your Cart</SheetTitle>
       </SheetHeader>
@@ -136,8 +136,8 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
 
         <Button
           onClick={() => {
-            navigate("/shop/checkout")
-            setOpenCartSheet(false)
+            navigate("/shop/checkout");
+            setOpenCartSheet(false);
           }}
           className="w-full mt-4 bg-black text-white hover:bg-gray-800 py-3 text-sm sm:text-base"
         >
@@ -145,7 +145,7 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
         </Button>
       </div>
     </SheetContent>
-  )
+  );
 }
 
-export default UserCartWrapper
+export default UserCartWrapper;
