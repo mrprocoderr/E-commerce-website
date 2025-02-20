@@ -221,7 +221,7 @@ function PaypalReturnPage() {
       transition={{ duration: 0.6, ease: "easeInOut" }}
       className="flex justify-center items-center min-h-screen bg-gray-100 px-4"
     >
-      <Card className="w-full max-w-lg mx-auto p-6 sm:p-8 text-center shadow-xl bg-white border border-gray-200 rounded-3xl">
+      <Card className="w-full max-w-lg mx-auto p-6 sm:p-8 text-center shadow-xl bg-white border border-gray-200 rounded-3xl mt-[-250px]">
         <CardHeader>
           <motion.div
             initial={{ opacity: 0, y: -30 }}

@@ -248,7 +248,7 @@ function PaymentSuccessPage() {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="flex items-center justify-center min-h-screen h-screen bg-gradient-to-r from-green-400 to-blue-500 px-4"
+      className="flex items-center justify-center min-h-screen h-screen bg-gradient-to-r  from-green-400 to-blue-500 px-4"
     >
       <motion.div
         initial={{ scale: 0.8 }}
@@ -256,7 +256,7 @@ function PaymentSuccessPage() {
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
         className="w-full max-w-md"
       >
-        <Card className="mx-auto p-6 bg-white shadow-2xl rounded-3xl">
+        <Card className="mx-auto p-6 bg-white shadow-2xl rounded-3xl mt-[-220px]">
           <CardHeader className="text-center">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
