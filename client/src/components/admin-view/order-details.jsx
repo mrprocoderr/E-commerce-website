@@ -163,6 +163,7 @@ import { Badge } from "../ui/badge"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllOrdersForAdmin, getOrderDetailsForAdmin, updateOrderStatus } from "@/store/admin/order-slice"
 import { useToast } from "@/hooks/use-toast"
+import { CheckCircle } from "lucide-react"
 
 const initialFormData = {
   status: "",
@@ -184,9 +185,33 @@ function AdminOrderDetailsView({ orderDetails }) {
         dispatch(getAllOrdersForAdmin())
         setFormData(initialFormData)
         toast({
-          title: data?.payload?.message,
-          className: "bg-white text-black shadow-lg",
-        })
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex flex-col gap-2 text-lg"
+            >
+              <div className="flex flex-row items-center gap-2">
+                <CheckCircle className="text-white" size={24} />
+                {/* <span>Product is added to cart</span> */}
+                {data?.payload?.message}
+              </div>
+              <motion.div
+                initial={{ width: "100%" }}
+                animate={{ width: "0%" }}
+                transition={{ duration: 4, ease: "linear" }}
+                className="h-1 bg-white"
+              />
+            </motion.div>
+          ),
+          className: "bg-green-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-5 w-[320px]",
+          duration: 4000,
+        });
+        // toast({
+        //   title: data?.payload?.message,
+        //   className: "bg-white text-black shadow-lg",
+        // })
       }
     })
   }
@@ -277,7 +302,7 @@ function AdminOrderDetailsView({ orderDetails }) {
                   >
                     <span className="font-medium">Title: {item.title}</span>
                     <span className="text-sm text-gray-600">Quantity: {item.quantity}</span>
-                    <span className="text-sm font-semibold">Price: ${item.price}</span>
+                    <span className="text-sm font-semibold">Price: Rs.{item.price}</span>
                   
                   </motion.li>
                 ))

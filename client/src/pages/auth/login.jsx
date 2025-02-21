@@ -32,14 +32,24 @@ function AuthLogin() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="flex items-center gap-2"
+              className="flex flex-col gap-2 text-lg"
             >
-              <CheckCircle className="text-green-500" size={20} />
-              {data?.payload?.message}
+              <div className="flex flex-row items-center gap-2">
+                <CheckCircle className="text-white" size={24} />
+                {data?.payload?.message}
+              </div>
+              <motion.div
+                initial={{ width: "100%" }}
+                animate={{ width: "0%" }}
+                transition={{ duration: 4, ease: "linear" }}
+                className="h-1 bg-white"
+              />
             </motion.div>
           ),
-          className: "bg-white text-black shadow-lg px-4 py-2 rounded-lg",
+          className:"bg-green-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-5 right-5 sm:right-14 w-[90%] sm:w-[350px] max-w-[350px]",
+          duration: 4000,
         });
+        
       } else {
         toast({
           title: (
@@ -47,15 +57,24 @@ function AuthLogin() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              whileTap={{ scale: 0.9 }}
-              className="flex items-center gap-2"
+              className="flex flex-col gap-2 text-lg"
             >
-              <XCircle className="text-red-500" size={20} />
-              <span>{data?.payload?.message}</span>
+              <div className="flex flex-row items-center gap-2">
+                <XCircle className="text-white" size={24} />
+                {data?.payload?.message}
+              </div>
+              <motion.div
+                initial={{ width: "100%" }}
+                animate={{ width: "0%" }}
+                transition={{ duration: 2, ease: "linear" }}
+                className="h-1 bg-white"
+              />
             </motion.div>
           ),
-          className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+          className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-3 right-5 w-[400px]",
+          duration: 2000,
         });
+        
       }
     });
   }

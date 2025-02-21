@@ -11,7 +11,7 @@ import { addressFormControls } from "@/config"
 import { useDispatch, useSelector } from "react-redux"
 import { useToast } from "@/hooks/use-toast"
 import AddressCard from "./address-card";
-import { XCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 const initialAddressFormData = {
@@ -41,25 +41,24 @@ function Address({setCurrentSelectedAddress,selectedId}) {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            whileTap={{ scale: 0.9 }}
-            className="flex items-center gap-2"
+            className="flex flex-col gap-2 text-lg"
           >
-            <XCircle className="text-green-500" size={20} />
-            You can add a maximum of 3 addresses.
+            <div className="flex flex-row items-center gap-2">
+              <XCircle className="text-white" size={24} />
+              <span> You can add a maximum of 3 addresses.</span>
+            </div>
+            <motion.div
+              initial={{ width: "100%" }}
+              animate={{ width: "0%" }}
+              transition={{ duration: 2, ease: "linear" }}
+              className="h-1 bg-white"
+            />
           </motion.div>
         ),
-        description: "Please remove an existing address to add a new one.",
-        className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg",
+        className: "bg-red-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-3 right-5 sm:right-14 w-[90%] sm:w-[450px] max-w-[450px]",
+        duration: 2000,
       });
-
-
-      // toast({
-      //   title: "You can add a maximum of 3 addresses.",
-      //   description: "Please remove an existing address to add a new one.",
-      //   className: "bg-red-600 text-white shadow-lg",
-      //   variant: "destructive",
-      // })
-
+  
       return
     }
 
@@ -76,9 +75,29 @@ function Address({setCurrentSelectedAddress,selectedId}) {
             setCurrentEditedId(null)
             setFormData(initialAddressFormData)
             toast({
-              title: "Address updated successfully",
-              className: "bg-white text-black shadow-lg",
-            })
+              title: (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex flex-col gap-2 text-lg"
+                >
+                  <div className="flex flex-row items-center gap-2">
+                    <CheckCircle className="text-white" size={24} />
+                    <span>Address updated successfully</span>
+                  </div>
+                  <motion.div
+                    initial={{ width: "100%" }}
+                    animate={{ width: "0%" }}
+                    transition={{ duration: 4, ease: "linear" }}
+                    className="h-1 bg-white"
+                  />
+                </motion.div>
+              ),
+              className: "bg-green-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-5 right-5 sm:right-14 w-[90%] sm:w-[350px] max-w-[350px]",
+              duration: 4000,
+            });
+          
           }
         })
       : dispatch(
@@ -91,9 +110,29 @@ function Address({setCurrentSelectedAddress,selectedId}) {
             dispatch(fetchAllAddresses(user?.id))
             setFormData(initialAddressFormData)
             toast({
-              title: "Address added successfully",
-              className: "bg-white text-black shadow-lg",
-            })
+              title: (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex flex-col gap-2 text-lg"
+                >
+                  <div className="flex flex-row items-center gap-2">
+                    <CheckCircle className="text-white" size={24} />
+                    <span>Address added successfully</span>
+                  </div>
+                  <motion.div
+                    initial={{ width: "100%" }}
+                    animate={{ width: "0%" }}
+                    transition={{ duration: 4, ease: "linear" }}
+                    className="h-1 bg-white"
+                  />
+                </motion.div>
+              ),
+              className: "bg-green-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-5 right-5 sm:right-14 w-[90%] sm:w-[350px] max-w-[350px]",
+              duration: 4000,
+            });
+            
           }
         })
   }
@@ -105,8 +144,27 @@ function Address({setCurrentSelectedAddress,selectedId}) {
       if (data?.payload?.success) {
         dispatch(fetchAllAddresses(user?.id));
         toast({
-          title: "Address deleted successfully",
-          className: "bg-white text-black shadow-lg",
+          title: (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="flex flex-col gap-2 text-lg"
+            >
+              <div className="flex flex-row items-center gap-2">
+                <CheckCircle className="text-white" size={24} />
+                <span>Address deleted successfully</span>
+              </div>
+              <motion.div
+                initial={{ width: "100%" }}
+                animate={{ width: "0%" }}
+                transition={{ duration: 4, ease: "linear" }}
+                className="h-1 bg-white"
+              />
+            </motion.div>
+          ),
+          className: "bg-green-500 text-white shadow-lg px-4 py-2 rounded-lg fixed bottom-5 right-5 sm:right-14 w-[90%] sm:w-[350px] max-w-[350px]",
+          duration: 4000,
         });
       }
     });
