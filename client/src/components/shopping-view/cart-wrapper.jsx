@@ -64,7 +64,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import UserCartItemsContent from "./cart-items-content";
-import EmptyCartImage from "D:/React_Project/E-comm/client/src/assets/pngwing.png"; // Make sure you have this image in your assets
+import EmptyCartImage from "../../assets/pngwing.png"; // Make sure you have this image in your assets
 
 function UserCartWrapper({ cartItems, setOpenCartSheet }) {
   const navigate = useNavigate();
